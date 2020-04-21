@@ -12,16 +12,16 @@ namespace DTFSZTIR
             double[] f = new double[4]; //célfgvek
             double[] w = new double[4];//célfgvek prioritása
 
-            int numberOfJobs; //munkak szama
-            int numberOfResources; //erőf száma
-            Job[] jobs; // munkak
+            int numberOfJobs; //munkák száma
+            int numberOfResources; //erőforrások száma
+            Job[] jobs; // munkák
             Resource[] resources; //erőforrások
-            int[] s; //kozos utemterv            
-            int cut_mode; //operációk TW-ra illesztése: 0 nem megszakítható, 1 megszakítható
+            int[] solution; //közös ütemterv            
+            int cut_mode; //operációk TimeWindowra illesztése: 0 nem megszakítható, 1 megszakítható
             int STEP;
             int LOOP;
 
-            Console.WriteLine("Feladatunk: F, Calm | perm, si,j,m, Trk,l | [Cmax, Tmax,∑Ti,∑Ui]");
+            Console.WriteLine("Feladatunk: F, Calm | perm, si,j,m, Trk,l | [Cmax, Tmax, Sum(Ti), Sum(Ui)]");
             Console.WriteLine("Adja meg a munkak szamat!");
             numberOfJobs = int.Parse(Console.ReadLine());
 
@@ -42,8 +42,11 @@ namespace DTFSZTIR
             Random rand = new Random();
             for (int i = 0; i < numberOfResources; i++)
             {
-                resources[i].Id = i;
-                resources[i].TransportTime = new int[numberOfResources];
+                resources[i] = new Resource
+                {
+                    Id = i,
+                    TransportTime = new int[numberOfResources]
+                };
                 for (int j = 0; j < numberOfResources; j++)
                 {
                     resources[i].TransportTime[j] = rand.Next(10, 20);
@@ -71,6 +74,8 @@ namespace DTFSZTIR
                 resources[i].Intervals = new TimeWindow[resources[i].IntervalNumber];
                 for (int m = 0; m < resources[i].IntervalNumber; m++)
                 {
+                    resources[i].Intervals[m] = new TimeWindow();
+
                     if (m == 0)
                     {
                         resources[i].Intervals[m].StartTime = rand.Next(10, 30);
@@ -83,12 +88,15 @@ namespace DTFSZTIR
                 }
             }
 
-            s = new int[numberOfJobs];
+            solution = new int[numberOfJobs];
             jobs = new Job[numberOfJobs];
             for (int i = 0; i < numberOfJobs; i++)
             {
-                jobs[i].Id = i;
-                jobs[i].ProcessTime = new int[numberOfResources];
+                jobs[i] = new Job
+                {
+                    Id = i,
+                    ProcessTime = new int[numberOfResources]
+                };
                 for (int j = 0; j < numberOfResources; j++)
                 {
                     jobs[i].ProcessTime[j] = rand.Next(1, 100);
@@ -98,43 +106,43 @@ namespace DTFSZTIR
 
                 //határidő
                 jobs[i].DueDate = rand.Next(100, 5000);
-                s[i] = numberOfJobs - i - 1;
+                solution[i] = numberOfJobs - i - 1;
             }
 
             //ad-hoc sorrend
             Console.WriteLine("\nAd-hoc sorrend:");
-            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, s, 0, cut_mode);
-            Console.WriteLine("Cmax értéke:{0}", jobs[s[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
+            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, solution, 0);
+            Console.WriteLine("Cmax értéke:{0}", jobs[solution[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
 
             //Johnson_alg - F2
             Console.WriteLine("\nJohnson-algoritmus:");
-            Schedulers.Johnson_Scheduler.Schedule(jobs, numberOfJobs, 0, s);
-            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, s, 0, cut_mode);
-            Console.WriteLine("Cmax értéke:{0}", jobs[s[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
+            Schedulers.Johnson_Scheduler.Schedule(jobs, numberOfJobs, 0, solution);
+            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, solution, 0);
+            Console.WriteLine("Cmax értéke:{0}", jobs[solution[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
 
             //Kiterjesztett Johnson-alg - F3
             Console.WriteLine("\nKiterjesztett Johnson-algoritmus:");
-            Schedulers.ExpandedJohnson_Scheduler.Schedule(jobs, numberOfJobs, 0, s);
-            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, s, 0, cut_mode);
-            Console.WriteLine("Cmax értéke:{0}", jobs[s[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
+            Schedulers.ExpandedJohnson_Scheduler.Schedule(jobs, numberOfJobs, 0, solution);
+            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, solution, 0);
+            Console.WriteLine("Cmax értéke:{0}", jobs[solution[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
 
             //Palmer - Fm
             Console.WriteLine("\nPalmer algoritmus:");
-            Schedulers.Palmer_Scheduler.Schedule(jobs, numberOfJobs, numberOfResources, s);
-            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, s, 0, cut_mode);
-            Console.WriteLine("Cmax értéke:{0}", jobs[s[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
+            Schedulers.Palmer_Scheduler.Schedule(jobs, numberOfJobs, numberOfResources, solution);
+            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, solution, 0);
+            Console.WriteLine("Cmax értéke:{0}", jobs[solution[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
 
             //Dannenbring - Fm
             Console.WriteLine("\nDannenbring algoritmus:");
-            Schedulers.Dannenbring.Scheduler(jobs, numberOfJobs, numberOfResources, s);
-            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, s, 0, cut_mode);
-            Console.WriteLine("Cmax értéke:{0}", jobs[s[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
+            Schedulers.Dannenbring.Scheduler(jobs, numberOfJobs, numberOfResources, solution);
+            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, solution, 0);
+            Console.WriteLine("Cmax értéke:{0}", jobs[solution[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
 
             //CDS algoritmus - Fm 
             Console.WriteLine("\nCDS algoritmus:");
-            Schedulers.CDS_Scheduler.Schedule(jobs, numberOfJobs, resources, numberOfResources, s, cut_mode);
-            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, s, 0, cut_mode);
-            Console.WriteLine("Cmax értéke:{0}", jobs[s[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
+            Schedulers.CDS_Scheduler.Schedule(jobs, numberOfJobs, resources, numberOfResources, solution, cut_mode);
+            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, solution, 0);
+            Console.WriteLine("Cmax értéke:{0}", jobs[solution[numberOfJobs - 1]].EndTime[numberOfResources - 1]);
 
             //Kereso
             Console.WriteLine("\nKereso algoritmus:");
@@ -142,11 +150,11 @@ namespace DTFSZTIR
             STEP = int.Parse(Console.ReadLine());
             Console.WriteLine("Adja meg a szomszédok szamat:");
             LOOP = int.Parse(Console.ReadLine());
-            Schedulers.RandomNeigbouralSearch_Scheduler.Search(jobs, numberOfJobs, resources, numberOfResources, s, STEP, LOOP, cut_mode, w, f.Length);
-            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, s, 0, cut_mode);
+            Schedulers.RandomNeigbouralSearch_Scheduler.Search(jobs, numberOfJobs, resources, numberOfResources, solution, STEP, LOOP, cut_mode, w, f.Length);
+            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, solution, 0);
 
             //Result
-            Evaluators.Evaluator.Evaluate(jobs, numberOfJobs, numberOfResources, s, f);
+            Evaluators.Evaluator.Evaluate(jobs, numberOfJobs, numberOfResources, solution, f);
             Console.WriteLine("\n\n Celfuggvenyek ertekei:");
 
             for (int k = 0; k < f.Length; k++)

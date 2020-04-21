@@ -12,7 +12,10 @@ namespace DTFSZTIR.Schedulers
 
             for (int i = 0; i < numberOfJobs; i++)
             {
-                virtualJobTable[i].ProcessTime = new int[2];
+                virtualJobTable[i] = new Job
+                {
+                    ProcessTime = new int[2]
+                };
                 virtualJobTable[i].ProcessTime[0] = jobs[i].ProcessTime[resourceIndex] + jobs[i].ProcessTime[resourceIndex + 1];
                 virtualJobTable[i].ProcessTime[1] = jobs[i].ProcessTime[resourceIndex + 1] + jobs[i].ProcessTime[resourceIndex + 2];
             }

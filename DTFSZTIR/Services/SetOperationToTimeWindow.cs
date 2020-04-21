@@ -9,21 +9,21 @@ namespace DTFSZTIR.Services
         {//visszaadja melyik TW a megfelelő
             //azt a TimeWindow-t keresi, ahova az adott operációt el tudja helyezni megszakítás nélkül
 
-            int modified_st = startTime;
-            int modified_et = endTime;
-            int execution_time = endTime - startTime; //végrehajtási idő
+            int modifiedStartTime = startTime;
+            int modifiedEndTime = endTime;
+            int executionTime = endTime - startTime;
 
             int f = -1;
             int c = 0; //hanyadik TW
 
             while (c < resources[resourceIndex].IntervalNumber)
             {
-                if (modified_st < resources[resourceIndex].Intervals[c].EndTime)// ez esetben tudjuk csak vizsgálni
+                if (modifiedStartTime < resources[resourceIndex].Intervals[c].EndTime)// ez esetben tudjuk csak vizsgálni
                 {
                     //hatarra illesztes ha kell
-                    modified_st = Math.Max(modified_st, resources[resourceIndex].Intervals[c].StartTime);
-                    modified_et = modified_st + execution_time;
-                    if (modified_et <= resources[resourceIndex].Intervals[c].EndTime)
+                    modifiedStartTime = Math.Max(modifiedStartTime, resources[resourceIndex].Intervals[c].StartTime);
+                    modifiedEndTime = modifiedStartTime + executionTime;
+                    if (modifiedEndTime <= resources[resourceIndex].Intervals[c].EndTime)
                     {//belefer
                         f = c;
                         break;
@@ -33,8 +33,8 @@ namespace DTFSZTIR.Services
                         c++;
                         if (c >= resources[resourceIndex].IntervalNumber)
                         {
-                            modified_st = resources[resourceIndex].Intervals[c - 1].EndTime;
-                            modified_et = modified_st + execution_time;
+                            modifiedStartTime = resources[resourceIndex].Intervals[c - 1].EndTime;
+                            modifiedEndTime = modifiedStartTime + executionTime;
                             break;
                         }
                         continue;
@@ -43,8 +43,8 @@ namespace DTFSZTIR.Services
                 }
                 c++;
             }
-            startTime = modified_st;
-            endTime = modified_et;
+            startTime = modifiedStartTime;
+            endTime = modifiedEndTime;
             return f;
         }
     }

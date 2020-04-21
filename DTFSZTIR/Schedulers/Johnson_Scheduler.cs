@@ -17,11 +17,11 @@ namespace DTFSZTIR.Schedulers
 
             for (int i = 0; i < numberOfJobs; i++)
             {
-                u[i] = i; //kiindulás, utemezni kívánt munkák id-je
+                u[i] = i; //kiindulás, ütemezni kívánt munkák id-je
             }
 
             //előrendezés
-            for (int i = 0; i < numberOfJobs - 1; i++) // így megy végig az U tömbön //függőlegesen mn, jobok közti min
+            for (int i = 0; i < numberOfJobs - 1; i++) // így megy végig az U tömbön
             {
                 index = i;
                 value = Math.Min(jobs[u[i]].ProcessTime[resourceIndex], jobs[u[i]].ProcessTime[resourceIndex + 1]);
@@ -34,7 +34,7 @@ namespace DTFSZTIR.Schedulers
                         value = val_of_j;
                     }
                 }
-                if (index != i) //van jobb jelolt
+                if (index != i) //van jobb jelölt
                 {  //csere
                     temp = u[index];
                     u[index] = u[i];
@@ -46,7 +46,7 @@ namespace DTFSZTIR.Schedulers
             first = 0;    //eleje
             last = numberOfJobs - 1;  //vege
 
-            for (int i = 0; i < numberOfJobs; i++)
+            for (int i = 0; i < numberOfJobs-1; i++)
             {
                 if (jobs[u[i]].ProcessTime[resourceIndex] <= jobs[u[i]].ProcessTime[resourceIndex + 1])
                 { //elölről nézve az elso szabad helyre
@@ -54,7 +54,7 @@ namespace DTFSZTIR.Schedulers
                     first++;
                 }
                 else
-                { //hatulsol az elso szabad helyre
+                { //hátulsó az első szabad helyre
                     solution[last] = u[i];
                     last--;
                 }

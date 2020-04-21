@@ -8,7 +8,7 @@ namespace DTFSZTIR.Schedulers
     {
         public static void Schedule(Job[] jobs, int numberOfJobs, int numberOfResources, int[] solution)
         {
-            List<PalmerJob> palmerPriority = new List<PalmerJob>(); //prioritaslista
+            List<PalmerJob> palmerPriority = new List<PalmerJob>(); //prioritáslista
 
             foreach (var j in jobs)
             {

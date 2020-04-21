@@ -18,9 +18,9 @@ namespace DTFSZTIR.Schedulers
             double[] best_f = new double[K];
             double[] f_ext = new double[K];
 
-            Services.CopySolutionToNewInstance.Copy(baseSolution, solution, numberOfJobs); //kezdeti bazis
+            Services.CopySolutionToNewInstance.Copy(baseSolution, solution, numberOfJobs); //kezdeti bázis
             Services.CopySolutionToNewInstance.Copy(bestSolution, solution, numberOfJobs); // legjobb ismert
-            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, bestSolution, 0, cut_mode);
+            Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, bestSolution, 0);
 
             Evaluators.Evaluator.Evaluate(jobs, numberOfJobs, numberOfResources, bestSolution, best_f);
 
@@ -31,7 +31,7 @@ namespace DTFSZTIR.Schedulers
                     //szomszéd generálása
                     Neighbour(baseSolution, actualSolution, numberOfJobs);
                     //szimu
-                    Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, actualSolution, 0, cut_mode);
+                    Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, actualSolution, 0);
                     //kiertekeles
                     Evaluators.Evaluator.Evaluate(jobs, numberOfJobs, numberOfResources, actualSolution, actual_f);
 
@@ -50,7 +50,7 @@ namespace DTFSZTIR.Schedulers
                     }
                 }
 
-                //uj bazist ad a best szomszéd
+                //új bázist ad a legjobb szomszéd
                 Services.CopySolutionToNewInstance.Copy(baseSolution, sol_ext, numberOfJobs);
 
                 if (Evaluators.RelativeChangeEvaluator.F(f_ext, actual_f, w, K) < 0)
@@ -63,7 +63,7 @@ namespace DTFSZTIR.Schedulers
         }        
 
         private static void Neighbour(int[] sol_0, int[] actual_sol, int numberJob)
-        {//pelda szomszedsagi operatorra
+        {//pelda szomszédsagi operátorra
             int x;
             Random rand = new Random();
             //teljes masolat

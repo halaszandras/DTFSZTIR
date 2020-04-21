@@ -13,8 +13,8 @@ namespace DTFSZTIR.Services
             int executionTime = endTime - startTime; //végrehajtási idő
 
             int f = -1;
-            int c = 0; //hanyadik TW
-            int fps = -1; //elso resz kezdete
+            int c = 0; //hanyadik TimeWindow
+            int fps = -1; //első rész kezdete
 
             while (c < resources[resourceIndex].IntervalNumber)
             {

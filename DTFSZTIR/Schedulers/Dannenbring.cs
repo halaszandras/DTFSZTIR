@@ -10,7 +10,10 @@ namespace DTFSZTIR.Schedulers
             Job[] virtualJobTable = new Job[numberOfJobs];
             for (int i = 0; i < numberOfJobs; i++)
             {
-                virtualJobTable[i].ProcessTime = new int[2];
+                virtualJobTable[i] = new Job
+                {
+                    ProcessTime = new int[2]
+                };
                 virtualJobTable[i].ProcessTime[0] = 0;
                 virtualJobTable[i].ProcessTime[1] = 0;
 

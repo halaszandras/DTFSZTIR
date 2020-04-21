@@ -6,6 +6,11 @@
         public int[] TransportTime { get; set; }
         public int[,] SetupTime { get; set; }
         public int IntervalNumber { get; set; }
-        public TimeWindow[] Intervals { get; set; }        
+        public TimeWindow[] Intervals { get; set; }
+
+        public Resource()
+        {
+
+        }
     }
 }

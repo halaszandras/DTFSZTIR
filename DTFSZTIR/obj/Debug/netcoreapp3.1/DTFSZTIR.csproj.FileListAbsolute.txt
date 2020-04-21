@@ -1,13 +1,13 @@
-C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.csprojAssemblyReference.cache
-C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.csproj.CoreCompileInputs.cache
-C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.AssemblyInfoInputs.cache
-C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.AssemblyInfo.cs
 C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\bin\Debug\netcoreapp3.1\DTFSZTIR.exe
 C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\bin\Debug\netcoreapp3.1\DTFSZTIR.deps.json
 C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\bin\Debug\netcoreapp3.1\DTFSZTIR.runtimeconfig.json
 C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\bin\Debug\netcoreapp3.1\DTFSZTIR.runtimeconfig.dev.json
 C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\bin\Debug\netcoreapp3.1\DTFSZTIR.dll
 C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\bin\Debug\netcoreapp3.1\DTFSZTIR.pdb
+C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.AssemblyInfo.cs
 C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.dll
 C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.pdb
 C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.genruntimeconfig.cache
+C:\Users\User\source\repos\DTFSZTIR\DTFSZTIR\obj\Debug\netcoreapp3.1\DTFSZTIR.csprojAssemblyReference.cache

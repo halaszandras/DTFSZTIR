@@ -13,12 +13,12 @@ namespace DTFSZTIR.Schedulers
             int actualCompletionTime; //completion time
             int bestCompletionTime = 0;
 
-            for (int j = 0; j < numberOfJobs; j++)
+            for (int j = 0; j < numberOfResources-1; j++)
             {
                 //virtuális kétgépes feladat Johnsonnal
                 Johnson_Scheduler.Schedule(jobs, numberOfJobs, j, actualSolution);
-                //szimu
-                Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, actualSolution, 0, cut_mode);
+                //szimuláció
+                Simulators.Simulator.Simulate(jobs, numberOfJobs, resources, numberOfResources, actualSolution, 0);
                 //kiertekeles
                 actualCompletionTime = jobs[solution[numberOfJobs - 1]].EndTime[numberOfResources - 1];
 

@@ -8,9 +8,9 @@ namespace DTFSZTIR.Evaluators
         //F|perm|Cmax esetén a célfüggvény, késés, csuszas stb. értéke
         public static void Evaluate(Job[] jobs, int numberOfJobs, int numberOfResources, int[] solution, double[] GoalFunctions)
         {
-            int completion; //bef.idopont
-            int lateness; //keses
-            int tardiness; //csuszas
+            int completion;
+            int lateness;
+            int tardiness; //csúszás
 
             double Tmax = 0; //max csuszás
             double Tsum = 0; //csúszás összeg
@@ -18,9 +18,9 @@ namespace DTFSZTIR.Evaluators
 
             for (int i = 0; i < numberOfJobs; i++)
             {
-                //adott munka, utolsó erőforráson a bef.ideje
+                //adott munka, utolsó erőforráson a befejezési ideje
                 completion = jobs[i].EndTime[numberOfResources - 1];
-                //bef.ido - határidő
+                //befejezési ido - határidő
                 lateness = completion - jobs[i].DueDate;
                 //maximum a 0, keses
                 tardiness = Math.Max(0, lateness);
