@@ -1,0 +1,2 @@
+# DTFSZTIR
+Beadandó feladat
